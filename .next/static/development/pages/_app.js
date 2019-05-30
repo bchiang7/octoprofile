@@ -13076,11 +13076,13 @@ function (_App) {
                 pageProps = _context.sent;
 
               case 6:
+                // exposes the query to the user
+                pageProps.query = ctx.query;
                 return _context.abrupt("return", {
                   pageProps: pageProps
                 });
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -13118,7 +13120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function _templateObject() {
-  var data = Object(_babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-Medium.woff2') format('woff2'),\n        url('../static/assets/Inter-Medium.woff') format('woff');\n    font-weight: 500;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-Bold.woff2') format('woff2'),\n        url('../static/assets/Inter-Bold.woff') format('woff');\n    font-weight: bold;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-Regular.woff2') format('woff2'),\n        url('../static/assets/Inter-Regular.woff') format('woff');\n    font-weight: normal;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-SemiBold.woff2') format('woff2'),\n        url('../static/assets/Inter-SemiBold.woff') format('woff');\n    font-weight: 600;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-BoldItalic.woff2') format('woff2'),\n        url('../static/assets/Inter-BoldItalic.woff') format('woff');\n    font-weight: bold;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-Italic.woff2') format('woff2'),\n        url('../static/assets/Inter-Italic.woff') format('woff');\n    font-weight: normal;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-MediumItalic.woff2') format('woff2'),\n        url('../static/assets/Inter-MediumItalic.woff') format('woff');\n    font-weight: 500;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/Inter-SemiBoldItalic.woff2') format('woff2'),\n        url('../static/assets/Inter-SemiBoldItalic.woff') format('woff');\n    font-weight: 600;\n    font-style: italic;\n  }\n\n  html {\n    box-sizing: border-box;\n  }\n\n  *,\n  *:before,\n  *:after {\n    box-sizing: inherit;\n  }\n\n  body {\n    margin: 0;\n    padding: 0;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    font-family: ", ";\n    color: ", ";\n  }\n\n  a {\n    text-decoration: none;\n    color: inherit;\n    transition: ", ";\n  }\n\n  ul, ol {\n    padding: 0;\n    margin: 0;\n    list-style: none;\n  }\n\n  img {\n    width: 100%;\n    max-width: 100%;\n    vertical-align: middle;\n  }\n\n  svg {\n    fill: currentColor;\n  }\n\n  button {\n    cursor: pointer;\n    border: 0;\n    border-radius: 0;\n    &:focus,\n    &:active {\n      outline: 0;\n    }\n  }\n\n  input {\n    border-radius: 0;\n    outline: 0;\n    &:focus {\n      outline: 0;\n    }\n    &::placeholder {\n    }\n    &:focus,\n    &:active {\n      &::placeholder {\n        opacity: 0.5;\n      }\n    }\n  }\n\n"]);
+  var data = Object(_babel_runtime_corejs2_helpers_esm_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-BlackItalic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-BlackItalic.woff') format('woff');\n    font-weight: 900;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-Bold.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-Bold.woff') format('woff');\n    font-weight: bold;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ExtraLightBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ExtraLightBETA.woff') format('woff');\n    font-weight: 200;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-SemiBoldItalic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-SemiBoldItalic.woff') format('woff');\n    font-weight: 600;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ThinBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ThinBETA.woff') format('woff');\n    font-weight: 100;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-BoldItalic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-BoldItalic.woff') format('woff');\n    font-weight: bold;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ExtraBold.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ExtraBold.woff') format('woff');\n    font-weight: 800;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-LightItalicBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-LightItalicBETA.woff') format('woff');\n    font-weight: 300;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-Italic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-Italic.woff') format('woff');\n    font-weight: normal;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ThinItalicBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ThinItalicBETA.woff') format('woff');\n    font-weight: 100;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ExtraBoldItalic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ExtraBoldItalic.woff') format('woff');\n    font-weight: 800;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-MediumItalic.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-MediumItalic.woff') format('woff');\n    font-weight: 500;\n    font-style: italic;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-Regular.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-Regular.woff') format('woff');\n    font-weight: normal;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-LightBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-LightBETA.woff') format('woff');\n    font-weight: 300;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-Black.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-Black.woff') format('woff');\n    font-weight: 900;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-SemiBold.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-SemiBold.woff') format('woff');\n    font-weight: 600;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-Medium.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-Medium.woff') format('woff');\n    font-weight: 500;\n    font-style: normal;\n  }\n\n  @font-face {\n    font-family: 'Inter';\n    src: url('../static/assets/fonts/Inter-ExtraLightItalicBETA.woff2') format('woff2'),\n        url('../static/assets/fonts/Inter-ExtraLightItalicBETA.woff') format('woff');\n    font-weight: 200;\n    font-style: italic;\n  }\n\n  html {\n    box-sizing: border-box;\n  }\n\n  *,\n  *:before,\n  *:after {\n    box-sizing: inherit;\n  }\n\n  body {\n    margin: 0;\n    padding: 0;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    font-family: ", ";\n    color: ", ";\n    background-color: ", ";\n  }\n\n  a {\n    text-decoration: none;\n    color: inherit;\n    transition: ", ";\n  }\n\n  ul, ol {\n    padding: 0;\n    margin: 0;\n    list-style: none;\n  }\n\n  img {\n    width: 100%;\n    max-width: 100%;\n    vertical-align: middle;\n  }\n\n  svg {\n    fill: currentColor;\n  }\n\n  button {\n    cursor: pointer;\n    border: 0;\n    border-radius: 0;\n    &:focus,\n    &:active {\n      outline: 0;\n    }\n  }\n\n  input {\n    border-radius: 0;\n    outline: 0;\n    &:focus {\n      outline: 0;\n    }\n    &::placeholder {\n    }\n    &:focus,\n    &:active {\n      &::placeholder {\n        opacity: 0.5;\n      }\n    }\n  }\n\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -13131,7 +13133,7 @@ function _templateObject() {
 
 var colors = _theme__WEBPACK_IMPORTED_MODULE_2__["default"].colors,
     fonts = _theme__WEBPACK_IMPORTED_MODULE_2__["default"].fonts;
-var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["createGlobalStyle"])(_templateObject(), fonts.primary, colors.black, _theme__WEBPACK_IMPORTED_MODULE_2__["default"].transition);
+var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["createGlobalStyle"])(_templateObject(), fonts.primary, colors.black, colors.offWhite, _theme__WEBPACK_IMPORTED_MODULE_2__["default"].transition);
 /* harmony default export */ __webpack_exports__["default"] = (GlobalStyle);
 
 /***/ }),
@@ -13192,11 +13194,17 @@ var mixins = {
 __webpack_require__.r(__webpack_exports__);
 var theme = {
   colors: {
-    primary: '#0070f3',
-    black: '#24292e'
+    black: '#24292e',
+    orange: '#f66a0a',
+    green: '#28a745',
+    lightblue: '#79b8ff',
+    blue: '#1277eb',
+    offWhite: '#f6f8fa',
+    white: '#ffffff',
+    grey: '#959da5'
   },
   fonts: {
-    primary: 'Inter-Regular, Inter, system, -apple-system, BlinkMacSystemFont, Roboto, Segoe UI, Arial, sans-serif'
+    primary: 'Inter, system, -apple-system, BlinkMacSystemFont, Roboto, Segoe UI, Arial, sans-serif'
   },
   transition: "all 0.15s ease"
 };

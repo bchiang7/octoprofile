@@ -1,55 +1,62 @@
-import React from 'react';
-import Link from 'next/link';
-import Head from '../components/head';
-import Nav from '../components/nav';
+import React, { useState } from 'react';
+import Router from 'next/router';
+import Head from '../components/Head';
 import styled from 'styled-components';
+import { mixins } from '../style';
 
-const Title = styled.h1`
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 81px;
-  letter-spacing: -0.055em;
-  line-height: 0.9em;
-  text-indent: -0.03em;
-  margin-bottom: 4rem;
-  margin-top: 10px;
-  font-weight: 740;
+const StyledContainer = styled.div`
+  ${mixins.flexCenter};
+  height: 100vh;
+  form {
+    box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: 5px;
+    padding: 2rem;
+    width: 50vw;
+    max-width: 700px;
+    text-align: center;
+    input {
+      color: ${({ theme }) => theme.colors.black};
+      font-size: 60px;
+      font-weight: 700;
+      text-align: center;
+      outline: 0;
+      border: 0;
+      border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+      background-color: ${({ theme }) => theme.colors.white};
+      width: 100%;
+      margin-top: 2rem;
+    }
+  }
 `;
 
-const Home = () => (
-  <div>
-    <Head title="Home" />
-    <Nav />
+const Home = () => {
+  const [username, setUsername] = useState('');
 
-    <div>
-      <Title>The Inter typeface family</Title>
-      <p>
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+  const handleChange = e => {
+    const { value } = e.target;
+    setUsername(value);
+  };
 
-      <div>
-        <Link href="https://github.com/zeit/next.js#getting-started">
-          <a>
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Next on Github and in their examples</p>
-          </a>
-        </Link>
-        <Link href="https://open.segment.com/create-next-app">
-          <a>
-            <h3>Examples &rarr;</h3>
-            <p>
-              Find other example boilerplates on the <code>create-next-app</code> site
-            </p>
-          </a>
-        </Link>
-        <Link href="#">
-          <a>
-            <h3>Create Next App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it</p>
-          </a>
-        </Link>
-      </div>
-    </div>
-  </div>
-);
+  return (
+    <main>
+      <Head title="OctoProfile" />
+
+      <StyledContainer>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            Router.push({
+              pathname: '/user',
+              query: { id: username },
+            });
+          }}>
+          <label htmlFor="username">GitHub Username</label>
+          <input name="username" type="text" onChange={handleChange} />
+        </form>
+      </StyledContainer>
+    </main>
+  );
+};
 
 export default Home;
