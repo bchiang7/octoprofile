@@ -13133,7 +13133,7 @@ function _templateObject() {
 
 var colors = _theme__WEBPACK_IMPORTED_MODULE_2__["default"].colors,
     fonts = _theme__WEBPACK_IMPORTED_MODULE_2__["default"].fonts;
-var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["createGlobalStyle"])(_templateObject(), fonts.primary, colors.black, colors.offWhite, _theme__WEBPACK_IMPORTED_MODULE_2__["default"].transition);
+var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["createGlobalStyle"])(_templateObject(), fonts.primary, colors.white, colors.mirage, _theme__WEBPACK_IMPORTED_MODULE_2__["default"].transition);
 /* harmony default export */ __webpack_exports__["default"] = (GlobalStyle);
 
 /***/ }),
@@ -13194,14 +13194,32 @@ var mixins = {
 __webpack_require__.r(__webpack_exports__);
 var theme = {
   colors: {
-    black: '#24292e',
     orange: '#f66a0a',
     green: '#28a745',
     lightblue: '#79b8ff',
     blue: '#1277eb',
-    offWhite: '#f6f8fa',
-    white: '#ffffff',
-    grey: '#959da5'
+    grey: '#959da5',
+    portage: '#AB7EF6',
+    azureRadiance: '#0194EF',
+    dodgerBlue: '#2EA2F9',
+    java: '#26C2C9',
+    apple: '#4FCF3F',
+    malachite: '#1BB934',
+    crimson: '#E1112C',
+    cinnabar: '#E54124',
+    sunglow: '#FFC02A',
+    sun: '#FFB610',
+    barleyWhite: '#FFF5CD',
+    athensGrey: '#FAFBFC',
+    white: '#FFFFFF',
+    regentStBlue: '#A9C7DF',
+    nepal: '#8EACC5',
+    oxfordBlue: '#323E4F',
+    ebonyClay: '#232D3D',
+    ebonyClay2: '#283243',
+    mirage: '#1C2532',
+    woodsmoke: '#18191A',
+    black: '#000000'
   },
   fonts: {
     primary: 'Inter, system, -apple-system, BlinkMacSystemFont, Roboto, Segoe UI, Arial, sans-serif'

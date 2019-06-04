@@ -34,7 +34,31 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ([]);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  label: 'JavaScript',
+  value: 16,
+  color: '#f1e05a'
+}, {
+  label: 'CSS',
+  value: 9,
+  color: '#563d7c'
+}, {
+  label: 'HTML',
+  value: 7,
+  color: '#e34c26'
+}, {
+  label: 'Vue',
+  value: 5,
+  color: '#2c3e50'
+}, {
+  label: 'Others',
+  value: 2,
+  color: '#ccc'
+}, {
+  label: 'Shell',
+  value: 2,
+  color: '#89e051'
+}]);
 
 /***/ }),
 
@@ -43896,7 +43920,7 @@ var _jsxFileName = "/Users/brittanychiang/Documents/personal/github-profile/page
 var StyledContainer = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].main.withConfig({
   displayName: "user__StyledContainer",
   componentId: "sc-1xsms7j-0"
-})(["padding:50px 100px;img{max-width:200px;}.chart{max-width:500px;}"]);
+})(["padding:50px 100px;section{margin:100px 0;}img{max-width:200px;}.chart{max-width:500px;}ul.grid{display:grid;grid-template-columns:repeat(3,minmax(300px,1fr));grid-gap:1rem;.repo{background-color:#323e4f;padding:20px;}}"]);
 
 var User =
 /*#__PURE__*/
@@ -43919,25 +43943,39 @@ function (_Component) {
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "state", {
       username: '',
       user: {},
-      userLanguages: [],
+      languages: _data__WEBPACK_IMPORTED_MODULE_12__["languages"],
       chartType: 'bar',
-      repos: _data__WEBPACK_IMPORTED_MODULE_12__["repos"]
+      repos: _data__WEBPACK_IMPORTED_MODULE_12__["repos"],
+      sortType: 'stars'
     });
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "buildChart", function () {
       var _this$state = _this.state,
-          userLanguages = _this$state.userLanguages,
+          languages = _this$state.languages,
           chartType = _this$state.chartType;
       var ctx = document.getElementById('langChart');
+      var labels = languages.map(function (lang) {
+        return lang.label;
+      });
+      var data = languages.map(function (lang) {
+        return lang.value;
+      });
+      var backgroundColor = languages.map(function (_ref) {
+        var color = _ref.color;
+        return "#".concat(color.length > 4 ? color.slice(1) : color.slice(1).repeat(2), "77");
+      });
+      var borderColor = languages.map(function (lang) {
+        return "".concat(lang.color);
+      });
       window.mychart = new chart_js__WEBPACK_IMPORTED_MODULE_9___default.a(ctx, {
         type: chartType,
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: labels,
           datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            label: 'Languages',
+            data: data,
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
             borderWidth: 1
           }]
         },
@@ -43963,14 +44001,38 @@ function (_Component) {
       });
     });
 
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "changeRepoSort", function (e) {
+      _this.setState({
+        sortType: e.target.value
+      }, function () {
+        return _this.getTopRepos();
+      });
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "getRepoPropName", function (type) {
+      var map = {
+        stars: 'stargazers_count',
+        forks: 'forks_count',
+        watchers: 'watchers_count',
+        size: 'size'
+      };
+      return map[type];
+    });
+
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__["default"])(_this), "getTopRepos", function () {
-      var repos = _this.state.repos;
-      var topFive = repos.sort(function (a, b) {
-        return b.stargazers_count - a.stargazers_count;
-      }).slice(0, 5);
+      var _this$state2 = _this.state,
+          repos = _this$state2.repos,
+          sortType = _this$state2.sortType;
+
+      var sortProperty = _this.getRepoPropName(sortType);
+
+      console.log(sortProperty);
+      var topRepos = repos.sort(function (a, b) {
+        return b[sortProperty] - a[sortProperty];
+      }).slice(0, 6);
 
       _this.setState({
-        topRepos: topFive
+        topRepos: topRepos
       });
     });
 
@@ -43997,7 +44059,7 @@ function (_Component) {
       //   if (err) {
       //     throw new Error(err);
       //   }
-      //   this.setState({ userLanguages: stats }, () => this.buildChart());
+      //   this.setState({ languages: stats }, () => this.buildChart());
       // });
 
       this.buildChart();
@@ -44006,21 +44068,26 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state2 = this.state,
-          username = _this$state2.username,
-          user = _this$state2.user,
-          topRepos = _this$state2.topRepos; // console.log(topRepos);
-
+      var _this$state3 = this.state,
+          username = _this$state3.username,
+          user = _this$state3.user,
+          topRepos = _this$state3.topRepos;
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(StyledContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 114
+          lineNumber: 136
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("section", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 137
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h1", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 115
+          lineNumber: 138
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("a", {
@@ -44029,73 +44096,73 @@ function (_Component) {
         rel: "noopener noreferrer",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 116
+          lineNumber: 139
         },
         __self: this
       }, username)), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h2", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 120
+          lineNumber: 143
         },
         __self: this
       }, user.name), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h3", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 121
+          lineNumber: 144
         },
         __self: this
       }, user.company), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 122
+          lineNumber: 145
         },
         __self: this
       }, user.blog), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 123
+          lineNumber: 146
         },
         __self: this
       }, user.location), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 124
+          lineNumber: 147
         },
         __self: this
       }, user.email), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 125
+          lineNumber: 148
         },
         __self: this
       }, user.hireable ? 'Hireable' : 'Not Available'), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 126
+          lineNumber: 149
         },
         __self: this
       }, user.bio), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 127
+          lineNumber: 150
         },
         __self: this
       }, "Repos: ", user.public_repos), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 128
+          lineNumber: 151
         },
         __self: this
       }, "Followers: ", user.followers), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 129
+          lineNumber: 152
         },
         __self: this
       }, "Following: ", user.following), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 130
+          lineNumber: 153
         },
         __self: this
       }, "Member since \xA0", new Date(user.created_at).toLocaleDateString('en-US', {
@@ -44106,44 +44173,55 @@ function (_Component) {
         alt: "",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 138
+          lineNumber: 161
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("select", {
+      })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("section", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 164
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h2", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 165
+        },
+        __self: this
+      }, "Top Languages"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("select", {
         name: "chartType",
-        id: "chartType",
         onChange: this.changeChartType,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 141
+          lineNumber: 167
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
         value: "bar",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 142
+          lineNumber: 168
         },
         __self: this
       }, "Bar"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
         value: "polarArea",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 143
+          lineNumber: 169
         },
         __self: this
       }, "Polar Area"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
         value: "doughnut",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 144
+          lineNumber: 170
         },
         __self: this
       }, "Doughnut"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
         value: "pie",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 145
+          lineNumber: 171
         },
         __self: this
       }, "Pie")), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("canvas", {
@@ -44153,74 +44231,118 @@ function (_Component) {
         height: "400",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 148
+          lineNumber: 174
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h2", {
+      })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("section", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 150
+          lineNumber: 177
         },
         __self: this
-      }, "Top 5 Repos by stars"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("ul", {
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h2", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 151
+          lineNumber: 178
+        },
+        __self: this
+      }, "Top Repos"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("select", {
+        name: "repoType",
+        onChange: this.changeRepoSort,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 180
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
+        value: "stars",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 181
+        },
+        __self: this
+      }, "Stars"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
+        value: "forks",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 182
+        },
+        __self: this
+      }, "Forks"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
+        value: "watchers",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 183
+        },
+        __self: this
+      }, "Watchers"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", {
+        value: "size",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 184
+        },
+        __self: this
+      }, "Size")), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("ul", {
+        className: "grid",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 187
         },
         __self: this
       }, topRepos && topRepos.map(function (repo) {
         return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("li", {
           key: repo.id,
+          className: "repo",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 154
+            lineNumber: 190
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("a", {
           href: repo.html_url,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 155
+            lineNumber: 191
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("h3", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 156
+            lineNumber: 192
           },
           __self: this
         }, repo.name), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 157
+            lineNumber: 193
           },
           __self: this
         }, repo.description), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 158
+            lineNumber: 194
           },
           __self: this
         }, repo.homepage), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 159
+            lineNumber: 195
           },
           __self: this
         }, repo.stargazers_count, " stars"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 160
+            lineNumber: 196
           },
           __self: this
         }, repo.forks, " forks"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 161
+            lineNumber: 197
           },
           __self: this
         }, "Top Language: ", repo.language)));
-      })));
+      }))));
     }
   }]);
 
@@ -44234,7 +44356,7 @@ User.propTypes = {
 
 /***/ }),
 
-/***/ 0:
+/***/ 1:
 /*!********************************************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2Fuser&absolutePagePath=%2FUsers%2Fbrittanychiang%2FDocuments%2Fpersonal%2Fgithub-profile%2Fpages%2Fuser.js ***!
   \********************************************************************************************************************************************************/
@@ -44257,5 +44379,5 @@ module.exports = dll_7aff549c98b978433226;
 
 /***/ })
 
-},[[0,"static/runtime/webpack.js"]]]);
+},[[1,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=user.js.map

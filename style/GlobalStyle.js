@@ -163,8 +163,8 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: ${fonts.primary};
-    color: ${colors.black};
-    background-color: ${colors.offWhite};
+    color: ${colors.white};
+    background-color: ${colors.mirage};
   }
 
   a {

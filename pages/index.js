@@ -8,24 +8,24 @@ const StyledContainer = styled.div`
   ${mixins.flexCenter};
   height: 100vh;
   form {
-    box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
-    background-color: ${({ theme }) => theme.colors.white};
+    background-color: transparent;
     border-radius: 5px;
     padding: 2rem;
     width: 50vw;
     max-width: 700px;
     text-align: center;
     input {
-      color: ${({ theme }) => theme.colors.black};
+      background-color: ${({ theme }) => theme.colors.ebonyClay2};
+      color: ${({ theme }) => theme.colors.white};
       font-size: 60px;
       font-weight: 700;
       text-align: center;
       outline: 0;
       border: 0;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-      background-color: ${({ theme }) => theme.colors.white};
+      border-bottom: 1px solid ${({ theme }) => theme.colors.oxfordBlue};
       width: 100%;
       margin-top: 2rem;
+      padding: 1rem;
     }
   }
 `;
