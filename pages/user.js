@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import GhPolyglot from 'gh-polyglot';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { user, repos, languages } from '../data';
+import styled from 'styled-components';
+import { theme } from '../style';
+const { colors, fonts } = theme;
 
 const StyledContainer = styled.main`
   padding: 50px 100px;
@@ -24,6 +26,7 @@ const StyledContainer = styled.main`
     .repo {
       background-color: #323e4f;
       padding: 20px;
+      /* font-family: ${fonts.sfmono}; */
     }
   }
 `;
@@ -124,23 +127,22 @@ class User extends Component {
   getTopRepos = () => {
     const { repos, sortType } = this.state;
     const sortProperty = this.getRepoPropName(sortType);
-    console.log(sortProperty);
     const topRepos = repos.sort((a, b) => b[sortProperty] - a[sortProperty]).slice(0, 6);
     this.setState({ topRepos });
   };
 
   render() {
-    const { username, user, topRepos } = this.state;
+    const { username, user, topRepos, sortType } = this.state;
 
     return (
       <StyledContainer>
         <section>
-          <h1>
+          <h1>{user.name}</h1>
+          <h2>
             <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-              {username}
+              @{username}
             </a>
-          </h1>
-          <h2>{user.name}</h2>
+          </h2>
           <h3>{user.company}</h3>
           <p>{user.blog}</p>
           <p>{user.location}</p>
@@ -177,12 +179,58 @@ class User extends Component {
         <section>
           <h2>Top Repos</h2>
           {/* eslint-disable-next-line */}
-          <select name="repoType" onChange={this.changeRepoSort}>
+          {/* <select name="repoType" onChange={this.changeRepoSort}>
             <option value="stars">Stars</option>
             <option value="forks">Forks</option>
             <option value="watchers">Watchers</option>
             <option value="size">Size</option>
-          </select>
+          </select> */}
+          <form>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="stars"
+                  checked={sortType === 'stars'}
+                  onChange={this.changeRepoSort}
+                />
+                stars
+              </label>
+            </div>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="forks"
+                  checked={sortType === 'forks'}
+                  onChange={this.changeRepoSort}
+                />
+                forks
+              </label>
+            </div>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="watchers"
+                  checked={sortType === 'watchers'}
+                  onChange={this.changeRepoSort}
+                />
+                watchers
+              </label>
+            </div>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="size"
+                  checked={sortType === 'size'}
+                  onChange={this.changeRepoSort}
+                />
+                size
+              </label>
+            </div>
+          </form>
 
           <ul className="grid">
             {topRepos &&
@@ -195,6 +243,7 @@ class User extends Component {
                     <p>{repo.stargazers_count} stars</p>
                     <p>{repo.forks} forks</p>
                     <p>Top Language: {repo.language}</p>
+                    <p>Size: {repo.size}KB</p>
                   </a>
                 </li>
               ))}
