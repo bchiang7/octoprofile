@@ -2,9 +2,13 @@ const theme = {
   colors: {
     orange: '#f66a0a',
     green: '#28a745',
-    lightblue: '#79b8ff',
     blue: '#1277eb',
+    lightblue: '#79b8ff',
+    lightestBlue: '#c8e1ff',
+    offWhite: '#f6f8fa',
     grey: '#959da5',
+    black: '#1A1E22',
+    darkGrey: '#24292e',
 
     portage: '#AB7EF6',
     azureRadiance: '#0194EF',
@@ -26,7 +30,6 @@ const theme = {
     ebonyClay2: '#283243',
     mirage: '#1C2532',
     woodsmoke: '#18191A',
-    black: '#000000',
   },
 
   fonts: {
@@ -34,7 +37,7 @@ const theme = {
     mono: 'SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace',
   },
 
-  transition: `all 0.15s ease`,
+  transition: `all 0.25s ease-in-out`,
 };
 
 export default theme;

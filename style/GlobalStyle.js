@@ -273,18 +273,23 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: ${fonts.inter};
-    color: ${colors.white};
-    background-color: ${colors.mirage};
+    color: ${colors.darkGrey};
+    background-color: ${colors.offWhite};
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    font-weight: 500;
   }
 
   a {
     text-decoration: none;
-    color: ${colors.regentStBlue};
     transition: ${theme.transition};
+    color: ${colors.blue};
+    display: inline-block;
 
     &:hover,
     &:focus {
-      color: ${colors.white};
     }
   }
 

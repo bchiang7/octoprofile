@@ -15,6 +15,12 @@ const mixins = {
   outline: css`
     outline: 1px solid red;
   `,
+
+  ellipsis: css`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  `,
 };
 
 export default mixins;

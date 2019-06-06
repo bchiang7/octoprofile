@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import GhPolyglot from 'gh-polyglot';
 import Chart from 'chart.js';
-import { languages } from '../data';
+import { languages } from '../utils';
 import styled from 'styled-components';
 import { theme } from '../style';
 const { colors, fonts } = theme;
 
 const StyledSection = styled.section`
   .chart {
-    max-width: 500px;
+    max-width: 400px;
   }
 `;
 
@@ -20,7 +20,7 @@ class Languages extends Component {
 
   state = {
     languages,
-    chartType: 'bar',
+    chartType: 'pie',
   };
 
   componentDidMount() {
@@ -42,7 +42,7 @@ class Languages extends Component {
     const labels = languages.map(lang => lang.label);
     const data = languages.map(lang => lang.value);
     const backgroundColor = languages.map(
-      ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}77`,
+      ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}99`,
     );
     const borderColor = languages.map(lang => `${lang.color}`);
 
@@ -85,10 +85,10 @@ class Languages extends Component {
         <h2>Top Languages</h2>
         {/* eslint-disable-next-line */}
         <select name="chartType" onChange={this.changeChartType}>
-          <option value="bar">Bar</option>
-          <option value="polarArea">Polar Area</option>
-          <option value="doughnut">Doughnut</option>
           <option value="pie">Pie</option>
+          <option value="doughnut">Doughnut</option>
+          <option value="polarArea">Polar Area</option>
+          <option value="bar">Bar</option>
         </select>
 
         <canvas id="langChart" className="chart" width="400" height="400" />

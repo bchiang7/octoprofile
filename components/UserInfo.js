@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { user } from '../data';
+import { user } from '../utils';
 import styled from 'styled-components';
-import { theme } from '../style';
+import { theme, mixins } from '../style';
 const { colors, fonts } = theme;
 
 const StyledSection = styled.section`
-  /* text-align: center; */
+  background-color: ${colors.black};
+  color: ${colors.lightestBlue};
+  text-align: center;
 
   h1 {
     font-weight: 500;
@@ -19,20 +21,19 @@ const StyledSection = styled.section`
   }
 
   .avatar {
+    ${mixins.flexCenter};
+    margin: 0 auto 20px;
     border: 2px solid ${colors.blue};
     border-radius: 100%;
-    max-width: 200px;
-
-    &:hover {
-      img {
-        filter: grayscale(0);
-      }
-    }
-
+    width: 180px;
+    height: 180px;
     img {
       border-radius: 100%;
-      filter: grayscale(1);
     }
+  }
+
+  .flex {
+    ${mixins.flexBetween}
   }
 `;
 
@@ -70,21 +71,33 @@ class UserInfo extends Component {
           </a>
         </h2>
         <h3>{user.bio}</h3>
-        <p>{user.company}</p>
-        <p>{user.blog}</p>
-        <p>{user.location}</p>
-        <p>{user.email}</p>
-        <p>Repos: {user.public_repos}</p>
-        <p>Followers: {user.followers}</p>
-        <p>Following: {user.following}</p>
-        <p>
-          Joined{' '}
-          {new Date(user.created_at).toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
-        </p>
+        <div className="flex">
+          <div>{user.company}</div>
+          <div>{user.blog}</div>
+          <div>{user.location}</div>
+          <p>
+            Joined{' '}
+            {new Date(user.created_at).toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </p>
+        </div>
+        <div className="flex">
+          <div>
+            <h4>{user.public_repos}</h4>
+            <p>Repos</p>
+          </div>
+          <div>
+            <h4>{user.followers}</h4>
+            <p>Followers</p>
+          </div>
+          <div>
+            <h4>{user.following}</h4>
+            <p>Following</p>
+          </div>
+        </div>
       </StyledSection>
     );
   }
