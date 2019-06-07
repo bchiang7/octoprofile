@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
+import Octicon, { MarkGithub } from '@primer/octicons-react';
 import Head from '../components/Head';
 import styled from 'styled-components';
-import { mixins } from '../style';
+import { theme, mixins } from '../style';
+const { colors } = theme;
 
 const StyledContainer = styled.div`
   ${mixins.flexCenter};
+  background-color: ${colors.black};
+  color: ${colors.offWhite};
   height: 100vh;
+
   form {
     background-color: transparent;
     border-radius: 5px;
@@ -14,15 +19,22 @@ const StyledContainer = styled.div`
     width: 50vw;
     max-width: 700px;
     text-align: center;
+
+    label {
+      font-size: 3rem;
+      font-weight: 400;
+      color: ${colors.blue};
+    }
+
     input {
-      background-color: ${({ theme }) => theme.colors.ebonyClay2};
-      color: ${({ theme }) => theme.colors.white};
-      font-size: 60px;
-      font-weight: 700;
+      background-color: ${colors.darkGrey};
+      color: ${colors.offWhite};
+      font-size: 3rem;
+      font-weight: 400;
       text-align: center;
       outline: 0;
       border: 0;
-      border-bottom: 1px solid ${({ theme }) => theme.colors.oxfordBlue};
+      border-radius: 0.5rem;
       width: 100%;
       margin-top: 2rem;
       padding: 1rem;
@@ -32,11 +44,7 @@ const StyledContainer = styled.div`
 
 const Home = () => {
   const [username, setUsername] = useState('');
-
-  const handleChange = e => {
-    const { value } = e.target;
-    setUsername(value);
-  };
+  const handleChange = e => setUsername(e.target.value);
 
   return (
     <main>
@@ -51,8 +59,10 @@ const Home = () => {
               query: { id: username },
             });
           }}>
-          <label htmlFor="username">GitHub Username</label>
-          <input name="username" type="text" onChange={handleChange} />
+          <label htmlFor="username">
+            <Octicon icon={MarkGithub} size="large" />
+          </label>
+          <input name="username" type="text" onChange={handleChange} placeholder="e.g. octocat" />
         </form>
       </StyledContainer>
     </main>

@@ -1,86 +1,140 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Octicon, { Repo, Star, RepoForked, TriangleDown } from '@primer/octicons-react';
 import { repos, langColors } from '../utils';
-import { IconStar, IconFork } from '../components/icons';
 import styled from 'styled-components';
 import { theme, mixins } from '../style';
-const { colors } = theme;
+const { colors, fonts } = theme;
 
 const StyledSection = styled.section`
-  header {
-    ${mixins.flexBetween};
-    margin-bottom: 30px;
-  }
-  form {
+  .sort {
     display: flex;
-    .radio {
-      display: flex;
-      align-items: center;
-      margin-right: 10px;
+    align-items: center;
+    font-size: 1rem;
+    color: ${colors.grey};
+    .dropdown {
+      width: 120px;
     }
   }
-  ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 30px;
+`;
+const StyledRepoList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
 
-    .repo-item {
-      .repo {
-        ${mixins.flexBetween};
-        flex-direction: column;
-        padding: 30px;
-        height: 100%;
-        color: rgba(0, 0, 0, 0.5);
-        background-color: ${colors.white};
-        box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+  li {
+    .repo {
+      ${mixins.flexBetween};
+      flex-direction: column;
+      padding: 30px;
+      height: 100%;
+      color: ${colors.grey2};
+      background-color: ${colors.white};
+      border-radius: 0.25rem;
+      box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+      &:hover,
+      &:focus {
+        box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.2);
+        transform: scale(1.009);
+      }
 
-        &:hover,
-        &:focus {
-          box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.2);
+      h3 {
+        ${mixins.ellipsis};
+        color: ${colors.darkGrey};
+        margin-bottom: 0.75rem;
+        font-size: 20px;
+        font-family: ${fonts.mono};
+        font-weight: 700;
+        letter-spacing: -0.5px;
+      }
+
+      p {
+        font-size: 14px;
+        margin-bottom: 2rem;
+        line-height: 1.3;
+      }
+
+      &__header {
+        margin-bottom: 2rem;
+      }
+
+      &__name {
+        display: flex;
+        align-items: center;
+        svg {
+          margin-right: 0.5rem;
+          min-width: 16px;
         }
-
         h3 {
-          ${mixins.ellipsis};
-          color: ${colors.darkGrey};
           margin: 0;
-          font-size: 22px;
-          margin-bottom: 0.75rem;
         }
-        h4 {
-          font-weight: 400;
-          font-size: 14px;
-          margin-bottom: 2rem;
-          line-height: 1.3;
-        }
+      }
 
-        &__header {
-          margin-bottom: 2rem;
-        }
+      &__stats {
+        ${mixins.flexBetween};
+        font-size: 13px;
+        color: ${colors.grey};
 
-        &__stats {
-          ${mixins.flexBetween};
-          font-size: 13px;
-          > div {
-            display: flex;
-          }
+        &--left {
+          flex-grow: 1;
+          display: flex;
+
           span {
             display: flex;
             align-items: center;
-            margin-right: 10px;
+            margin-right: 0.75rem;
             svg {
-              margin-right: 3px;
+              margin-right: 0.25rem;
             }
-            .color {
+            .language {
               border-radius: 100%;
               width: 10px;
               height: 10px;
               background-color: blue;
-              margin-right: 5px;
+              margin-right: 0.25rem;
             }
           }
         }
       }
     }
+  }
+`;
+
+const DropdownList = styled.ul`
+  position: absolute;
+  overflow: hidden;
+  z-index: 2;
+  transition: ${theme.transition};
+  box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+`;
+const DropdownListItem = styled.li`
+  background-color: ${colors.white};
+  padding: 1rem;
+  border-radius: 0;
+  cursor: pointer;
+  transition: ${theme.transition};
+  &:last-of-type {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+  &:hover,
+  &:focus {
+    background-color: ${colors.offWhite};
+  }
+`;
+const ButtonLabel = styled.span`
+  transition: ${theme.transition};
+`;
+const DropdownButton = styled.button`
+  ${mixins.flexBetween};
+  padding: 0.5rem 5px;
+  width: 100%;
+  font-size: 1rem;
+  background-color: transparent;
+  border-bottom: 2px solid ${colors.grey};
+  line-height: 1;
+  svg {
+    margin-left: 1rem;
   }
 `;
 
@@ -116,107 +170,87 @@ class Repos extends Component {
     this.setState({ topRepos });
   };
 
-  changeRepoSort = e => {
-    this.setState({ sortType: e.target.value }, () => this.getTopRepos());
-  };
+  changeRepoSort = e => this.setState({ sortType: e.target.value }, () => this.getTopRepos());
+
+  toggleDropdown = () => console.log('toggle dropdown');
 
   render() {
     const { topRepos, sortType } = this.state;
+    const sortTypes = ['stars', 'forks', 'watchers', 'size'];
 
     return (
       <StyledSection>
         <header>
           <h2>Top Repos</h2>
-          {/* eslint-disable-next-line */}
-          {/* <select name="repoType" onChange={this.changeRepoSort}>
-            <option value="stars">Stars</option>
-            <option value="forks">Forks</option>
-            <option value="watchers">Watchers</option>
-            <option value="size">Size</option>
-          </select> */}
-          <form>
-            <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="stars"
-                  checked={sortType === 'stars'}
-                  onChange={this.changeRepoSort}
-                />
-                stars
-              </label>
+          <div className="sort">
+            <span>&nbsp; sorted by &nbsp;</span>
+            {/* eslint-disable-next-line */}
+            {/* <select name="repoType" onChange={this.changeRepoSort}>
+              {sortTypes &&
+                sortTypes.map((type, i) => (
+                  <option key={i} value={type}>
+                    {type}
+                  </option>
+                ))}
+            </select> */}
+
+            <div className="dropdown">
+              <DropdownButton onClick={() => this.toggleDropdown('list')}>
+                <ButtonLabel>{sortType}</ButtonLabel>
+                <Octicon icon={TriangleDown} />
+              </DropdownButton>
+              <DropdownList>
+                {sortTypes.map((type, i) => (
+                  <DropdownListItem
+                    key={i}
+                    onClick={() => this.changeRepoSort('value')}
+                    active={sortType === type}>
+                    {type}
+                  </DropdownListItem>
+                ))}
+              </DropdownList>
             </div>
-            <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="forks"
-                  checked={sortType === 'forks'}
-                  onChange={this.changeRepoSort}
-                />
-                forks
-              </label>
-            </div>
-            <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="watchers"
-                  checked={sortType === 'watchers'}
-                  onChange={this.changeRepoSort}
-                />
-                watchers
-              </label>
-            </div>
-            <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="size"
-                  checked={sortType === 'size'}
-                  onChange={this.changeRepoSort}
-                />
-                size
-              </label>
-            </div>
-          </form>
+          </div>
         </header>
 
-        <ul className="grid">
+        <StyledRepoList>
           {topRepos &&
             topRepos.map(repo => (
-              <li key={repo.id} className="repo-item">
+              <li key={repo.id}>
                 <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo">
-                  <div className="repo__name">
-                    <h3>{repo.name}</h3>
-                    <h4>{repo.description}</h4>
+                  <div className="repo__top">
+                    <div className="repo__name">
+                      <Octicon icon={Repo} />
+                      <h3>{repo.name}</h3>
+                    </div>
+                    <p>{repo.description}</p>
                   </div>
                   <div className="repo__stats">
-                    <div>
+                    <div className="repo__stats--left">
                       <span>
-                        <span
-                          className="color"
+                        <div
+                          className="language"
                           style={{ backgroundColor: langColors[repo.language] }}
                         />
                         {repo.language}
                       </span>
                       <span>
-                        <IconStar />
-                        {repo.stargazers_count}
+                        <Octicon icon={Star} />
+                        {repo.stargazers_count.toLocaleString()}
                       </span>
                       <span>
-                        <IconFork />
-                        {repo.forks}
+                        <Octicon icon={RepoForked} />
+                        {repo.forks.toLocaleString()}
                       </span>
                     </div>
-                    <div>
+                    <div className="repo__stats--right">
                       <span>{repo.size.toLocaleString()} KB</span>
                     </div>
                   </div>
                 </a>
               </li>
             ))}
-        </ul>
+        </StyledRepoList>
       </StyledSection>
     );
   }

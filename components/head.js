@@ -1,6 +1,6 @@
 import React from 'react';
 import NextHead from 'next/head';
-import { string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const defaultDescription = '';
 const defaultOGURL = '';
@@ -29,10 +29,10 @@ const Head = props => (
 );
 
 Head.propTypes = {
-  title: string,
-  description: string,
-  url: string,
-  ogImage: string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  url: PropTypes.string,
+  ogImage: PropTypes.string,
 };
 
 export default Head;

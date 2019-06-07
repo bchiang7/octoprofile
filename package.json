@@ -23,6 +23,7 @@
     ]
   },
   "dependencies": {
+    "@primer/octicons-react": "^9.0.0",
     "chart.js": "^2.8.0",
     "gh-polyglot": "^2.3.2",
     "next": "^8.1.0",

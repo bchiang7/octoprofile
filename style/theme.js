@@ -6,7 +6,8 @@ const theme = {
     lightblue: '#79b8ff',
     lightestBlue: '#c8e1ff',
     offWhite: '#f6f8fa',
-    grey: '#959da5',
+    grey: '#6a737d',
+    grey2: '#586069',
     black: '#1A1E22',
     darkGrey: '#24292e',
 
@@ -37,7 +38,7 @@ const theme = {
     mono: 'SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, monospace',
   },
 
-  transition: `all 0.25s ease-in-out`,
+  transition: `all 0.2s ease-in-out`,
 };
 
 export default theme;

@@ -82,14 +82,19 @@ class Languages extends Component {
   render() {
     return (
       <StyledSection>
-        <h2>Top Languages</h2>
-        {/* eslint-disable-next-line */}
-        <select name="chartType" onChange={this.changeChartType}>
-          <option value="pie">Pie</option>
-          <option value="doughnut">Doughnut</option>
-          <option value="polarArea">Polar Area</option>
-          <option value="bar">Bar</option>
-        </select>
+        <header>
+          <h2>Top Languages</h2>
+          <div>
+            Chart Type
+            {/* eslint-disable-next-line */}
+            <select name="chartType" onChange={this.changeChartType}>
+              <option value="pie">Pie</option>
+              <option value="doughnut">Doughnut</option>
+              <option value="polarArea">Polar Area</option>
+              <option value="bar">Bar</option>
+            </select>
+          </div>
+        </header>
 
         <canvas id="langChart" className="chart" width="400" height="400" />
       </StyledSection>
