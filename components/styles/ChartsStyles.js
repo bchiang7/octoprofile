@@ -2,13 +2,16 @@ import styled from 'styled-components';
 import { theme, mixins } from '../../style';
 const { colors } = theme;
 
-const LanguagesStyles = styled.div`
-  ${mixins.flexBetween};
+const ChartsStyles = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2rem;
+  justify-content: center;
+  margin-top: -9rem;
 
   .chart {
     background-color: ${colors.white};
     max-width: 500px;
-    margin-top: -6rem;
     padding: 2rem;
     border-radius: 0.25rem;
     box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
@@ -19,4 +22,4 @@ const LanguagesStyles = styled.div`
   }
 `;
 
-export default LanguagesStyles;
+export default ChartsStyles;

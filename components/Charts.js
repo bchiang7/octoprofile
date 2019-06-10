@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js';
-import GhPolyglot from 'gh-polyglot';
+// import GhPolyglot from 'gh-polyglot';
 import { langData } from '../utils';
-import LanguagesStyles from './styles/LanguagesStyles';
+import ChartsStyles from './styles/ChartsStyles';
 import { theme, Section } from '../style';
 const { fonts } = theme;
 
-class Languages extends Component {
+class Charts extends Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
   };
@@ -18,6 +18,7 @@ class Languages extends Component {
   };
 
   componentDidMount() {
+    // const { username } = this.props;
     // const me = new GhPolyglot(`${username}`);
     // me.userStats((err, stats) => {
     //   if (err) {
@@ -105,7 +106,7 @@ class Languages extends Component {
   render() {
     return (
       <Section>
-        <LanguagesStyles>
+        <ChartsStyles>
           <div className="chart">
             <header>
               <h2>Top Languages</h2>
@@ -124,10 +125,48 @@ class Languages extends Component {
               <canvas id="langChart" width="400" height="400" />
             </div>
           </div>
-        </LanguagesStyles>
+
+          <div className="chart">
+            <header>
+              <h2>Most Starred</h2>
+              <div>
+                {/* eslint-disable-next-line */}
+                <select name="chartType" onChange={this.changeChartType}>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="polarArea">Polar Area</option>
+                  <option value="bar">Bar</option>
+                </select>
+              </div>
+            </header>
+
+            {/* <div className="chart-container">
+              <canvas id="langChart" width="400" height="400" />
+            </div> */}
+          </div>
+
+          <div className="chart">
+            <header>
+              <h2>Most Starred</h2>
+              <div>
+                {/* eslint-disable-next-line */}
+                <select name="chartType" onChange={this.changeChartType}>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="polarArea">Polar Area</option>
+                  <option value="bar">Bar</option>
+                </select>
+              </div>
+            </header>
+
+            {/* <div className="chart-container">
+              <canvas id="langChart" width="400" height="400" />
+            </div> */}
+          </div>
+        </ChartsStyles>
       </Section>
     );
   }
 }
 
-export default Languages;
+export default Charts;

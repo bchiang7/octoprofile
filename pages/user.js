@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from '../components/Head';
 import UserInfo from '../components/UserInfo';
-import Languages from '../components/Languages';
+import Charts from '../components/Charts';
 import Repos from '../components/Repos';
 
 const User = props => {
@@ -12,7 +12,7 @@ const User = props => {
     <main>
       <Head title="OctoProfile" />
       <UserInfo username={username} />
-      <Languages username={username} />
+      <Charts username={username} />
       <Repos username={username} />
     </main>
   );

@@ -57,7 +57,6 @@ const UserInfoStyles = styled.div`
 
   .stats {
     margin-top: 2rem;
-
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 180px));
     grid-gap: 0.5rem;

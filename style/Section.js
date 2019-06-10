@@ -3,14 +3,14 @@ import { theme } from '../style';
 const { colors } = theme;
 
 const Section = styled.section`
-  padding: 3rem;
+  padding: 5rem;
 
   ${props =>
     props.dark &&
     css`
       background-color: ${colors.black};
       color: ${colors.lightestBlue};
-      padding-bottom: 6rem;
+      padding-bottom: 7rem;
     `};
 
   header {
