@@ -20,10 +20,15 @@ const StyledContainer = styled.div`
     max-width: 700px;
     text-align: center;
 
-    label {
-      font-size: 3rem;
-      font-weight: 400;
+    svg {
       color: ${colors.blue};
+    }
+
+    label {
+      display: block;
+      font-size: 2rem;
+      font-weight: 400;
+      margin: 2rem;
     }
 
     input {
@@ -36,7 +41,6 @@ const StyledContainer = styled.div`
       border: 0;
       border-radius: 0.5rem;
       width: 100%;
-      margin-top: 2rem;
       padding: 1rem;
     }
   }
@@ -59,9 +63,8 @@ const Home = () => {
               query: { id: username },
             });
           }}>
-          <label htmlFor="username">
-            <Octicon icon={MarkGithub} size="large" />
-          </label>
+          <Octicon icon={MarkGithub} size="large" />
+          <label htmlFor="username">Find Your OctoProfile</label>
           <input name="username" type="text" onChange={handleChange} placeholder="e.g. octocat" />
         </form>
       </StyledContainer>

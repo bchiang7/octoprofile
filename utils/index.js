@@ -1,6 +1,6 @@
-import user from './user';
-import repos from './repos';
-import languages from './languages';
+import userData from './userData';
+import reposData from './reposData';
+import langData from './langData';
 import langColors from './langColors';
 
-export { user, repos, languages, langColors };
+export { userData, reposData, langData, langColors };

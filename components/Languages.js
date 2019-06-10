@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import GhPolyglot from 'gh-polyglot';
 import Chart from 'chart.js';
-import { languages } from '../utils';
-import styled from 'styled-components';
-import { theme } from '../style';
-const { colors, fonts } = theme;
-
-const StyledSection = styled.section`
-  .chart {
-    max-width: 400px;
-  }
-`;
+import GhPolyglot from 'gh-polyglot';
+import { langData } from '../utils';
+import LanguagesStyles from './styles/LanguagesStyles';
+import { theme, Section } from '../style';
+const { fonts } = theme;
 
 class Languages extends Component {
   static propTypes = {
@@ -19,7 +13,7 @@ class Languages extends Component {
   };
 
   state = {
-    languages,
+    languages: langData,
     chartType: 'pie',
   };
 
@@ -48,6 +42,8 @@ class Languages extends Component {
 
     window.mychart = new Chart(ctx, {
       type: chartType,
+      responsive: true,
+      maintainAspectRatio: false,
       data: {
         labels,
         datasets: [
@@ -62,13 +58,40 @@ class Languages extends Component {
       },
       options: {
         scales: {
-          yAxes: [
+          xAxes: [
             {
+              gridLines: {
+                // color: 'rgba(0,0,0,0.5)',
+              },
               ticks: {
-                beginAtZero: true,
+                fontFamily: fonts.inter,
+                fontSize: 12,
               },
             },
           ],
+          yAxes: [
+            {
+              gridLines: {
+                // color: 'rgba(0,0,0,0.5)',
+              },
+              ticks: {
+                beginAtZero: true,
+                fontFamily: fonts.inter,
+                fontSize: 12,
+              },
+            },
+          ],
+        },
+        legend: {
+          position: 'right',
+          labels: {
+            fontFamily: fonts.inter,
+          },
+        },
+        tooltips: {
+          titleFontFamily: fonts.inter,
+          bodyFontFamily: fonts.inter,
+          cornerRadius: 3,
         },
       },
     });
@@ -81,23 +104,28 @@ class Languages extends Component {
 
   render() {
     return (
-      <StyledSection>
-        <header>
-          <h2>Top Languages</h2>
-          <div>
-            Chart Type
-            {/* eslint-disable-next-line */}
-            <select name="chartType" onChange={this.changeChartType}>
-              <option value="pie">Pie</option>
-              <option value="doughnut">Doughnut</option>
-              <option value="polarArea">Polar Area</option>
-              <option value="bar">Bar</option>
-            </select>
-          </div>
-        </header>
+      <Section>
+        <LanguagesStyles>
+          <div className="chart">
+            <header>
+              <h2>Top Languages</h2>
+              <div>
+                {/* eslint-disable-next-line */}
+                <select name="chartType" onChange={this.changeChartType}>
+                  <option value="pie">Pie</option>
+                  <option value="doughnut">Doughnut</option>
+                  <option value="polarArea">Polar Area</option>
+                  <option value="bar">Bar</option>
+                </select>
+              </div>
+            </header>
 
-        <canvas id="langChart" className="chart" width="400" height="400" />
-      </StyledSection>
+            <div className="chart-container">
+              <canvas id="langChart" width="400" height="400" />
+            </div>
+          </div>
+        </LanguagesStyles>
+      </Section>
     );
   }
 }

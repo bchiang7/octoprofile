@@ -282,6 +282,10 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 500;
   }
 
+  p {
+    line-height: 1.5;
+  }
+
   a {
     text-decoration: none;
     transition: ${theme.transition};
@@ -313,6 +317,7 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     border: 0;
     border-radius: 0;
+    transition: ${theme.transition};
     &:focus,
     &:active {
       outline: 0;

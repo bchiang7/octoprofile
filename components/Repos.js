@@ -1,22 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Octicon, { Repo, Star, RepoForked, TriangleDown } from '@primer/octicons-react';
-import { repos, langColors } from '../utils';
-import styled from 'styled-components';
-import { theme, mixins } from '../style';
+import { reposData, langColors } from '../utils';
+import styled, { css } from 'styled-components';
+import { theme, mixins, Section } from '../style';
 const { colors, fonts } = theme;
 
-const StyledSection = styled.section`
-  .sort {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    color: ${colors.grey};
-    .dropdown {
-      width: 120px;
-    }
-  }
-`;
 const StyledRepoList = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -51,7 +40,6 @@ const StyledRepoList = styled.ul`
       p {
         font-size: 14px;
         margin-bottom: 2rem;
-        line-height: 1.3;
       }
 
       &__header {
@@ -99,43 +87,81 @@ const StyledRepoList = styled.ul`
     }
   }
 `;
+const StyledSort = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: ${colors.grey};
 
+  .label {
+    margin: 0 1rem;
+  }
+`;
+const DropdownButton = styled.button`
+  ${mixins.flexBetween};
+  align-items: center;
+  padding: 0.75rem;
+  width: 100%;
+  font-size: 14px;
+  color: ${colors.darkGrey};
+  text-align: left;
+  background-color: transparent;
+  border-bottom: 2px solid ${colors.grey};
+  line-height: 1;
+  &:hover,
+  &:focus {
+    color: ${colors.darkGrey};
+    background-color: ${colors.white};
+  }
+  svg {
+    margin-left: 0.5rem;
+  }
+  label {
+    transition: ${theme.transition};
+    cursor: pointer;
+  }
+`;
 const DropdownList = styled.ul`
   position: absolute;
   overflow: hidden;
+  width: 100%;
   z-index: 2;
   transition: ${theme.transition};
   box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
 `;
 const DropdownListItem = styled.li`
   background-color: ${colors.white};
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 0;
   cursor: pointer;
   transition: ${theme.transition};
-  &:last-of-type {
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-  }
   &:hover,
   &:focus {
     background-color: ${colors.offWhite};
   }
 `;
-const ButtonLabel = styled.span`
-  transition: ${theme.transition};
-`;
-const DropdownButton = styled.button`
-  ${mixins.flexBetween};
-  padding: 0.5rem 5px;
-  width: 100%;
-  font-size: 1rem;
-  background-color: transparent;
-  border-bottom: 2px solid ${colors.grey};
-  line-height: 1;
-  svg {
-    margin-left: 1rem;
-  }
+const Dropdown = styled.div`
+  position: relative;
+  width: 100px;
+  font-size: 14px;
+
+  ${props =>
+    props.active &&
+    css`
+      ${DropdownList} {
+        opacity: 1;
+        visibility: visible;
+      }
+      ${DropdownButton} {
+        background-color: ${colors.white};
+        border-color: ${colors.white};
+        svg {
+          transform: rotate(0.5turn);
+        }
+      }
+    `}
 `;
 
 class Repos extends Component {
@@ -144,8 +170,9 @@ class Repos extends Component {
   };
 
   state = {
-    repos,
+    repos: reposData,
     sortType: 'stars',
+    activeDropdown: '',
   };
 
   componentDidMount() {
@@ -166,51 +193,56 @@ class Repos extends Component {
     const { repos, sortType } = this.state;
     const LIMIT = 8;
     const sortProperty = this.getRepoPropName(sortType);
-    const topRepos = repos.sort((a, b) => b[sortProperty] - a[sortProperty]).slice(0, LIMIT);
+    const topRepos = repos
+      .filter(repo => !repo.fork)
+      .sort((a, b) => b[sortProperty] - a[sortProperty])
+      .slice(0, LIMIT);
     this.setState({ topRepos });
   };
 
-  changeRepoSort = e => this.setState({ sortType: e.target.value }, () => this.getTopRepos());
+  changeRepoSort = sortType => {
+    this.setState({ sortType }, () => {
+      this.getTopRepos();
+      this.toggleDropdown('repos');
+    });
+  };
 
-  toggleDropdown = () => console.log('toggle dropdown');
+  toggleDropdown = (type = '') => {
+    if (!type) {
+      return;
+    }
+    const { activeDropdown } = this.state;
+    this.setState({ activeDropdown: activeDropdown === type ? '' : type });
+  };
 
   render() {
-    const { topRepos, sortType } = this.state;
+    const { topRepos, sortType, activeDropdown } = this.state;
     const sortTypes = ['stars', 'forks', 'watchers', 'size'];
 
     return (
-      <StyledSection>
+      <Section>
         <header>
           <h2>Top Repos</h2>
-          <div className="sort">
-            <span>&nbsp; sorted by &nbsp;</span>
-            {/* eslint-disable-next-line */}
-            {/* <select name="repoType" onChange={this.changeRepoSort}>
-              {sortTypes &&
-                sortTypes.map((type, i) => (
-                  <option key={i} value={type}>
-                    {type}
-                  </option>
-                ))}
-            </select> */}
 
-            <div className="dropdown">
-              <DropdownButton onClick={() => this.toggleDropdown('list')}>
-                <ButtonLabel>{sortType}</ButtonLabel>
+          <StyledSort>
+            <span className="label">sorted by</span>
+            <Dropdown active={activeDropdown === 'repos'}>
+              <DropdownButton onClick={() => this.toggleDropdown('repos')}>
+                <label>{sortType}</label>
                 <Octicon icon={TriangleDown} />
               </DropdownButton>
               <DropdownList>
                 {sortTypes.map((type, i) => (
                   <DropdownListItem
                     key={i}
-                    onClick={() => this.changeRepoSort('value')}
+                    onClick={() => this.changeRepoSort(type)}
                     active={sortType === type}>
                     {type}
                   </DropdownListItem>
                 ))}
               </DropdownList>
-            </div>
-          </div>
+            </Dropdown>
+          </StyledSort>
         </header>
 
         <StyledRepoList>
@@ -251,7 +283,7 @@ class Repos extends Component {
               </li>
             ))}
         </StyledRepoList>
-      </StyledSection>
+      </Section>
     );
   }
 }
