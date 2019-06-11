@@ -3,7 +3,7 @@ import { theme } from '../style';
 const { colors } = theme;
 
 const Section = styled.section`
-  padding: 5rem;
+  padding: 5rem 5rem 2rem;
 
   ${props =>
     props.dark &&
