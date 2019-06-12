@@ -27,7 +27,6 @@ class Charts extends Component {
     //   }
     //   this.setState({ languages: stats }, () => this.initLangChart());
     // });
-
     this.initLangChart();
     this.initStarChart();
     this.initThirdChart();
@@ -43,7 +42,6 @@ class Charts extends Component {
       ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}99`,
     );
     const borderColor = languages.map(lang => `${lang.color}`);
-
     const axes = false;
     const legend = true;
     const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
@@ -125,7 +123,6 @@ class Charts extends Component {
             <header>
               <h2>Top Languages</h2>
             </header>
-
             <div className="chart-container">
               <canvas id="langChart" width="400" height="400" />
             </div>
@@ -135,7 +132,6 @@ class Charts extends Component {
             <header>
               <h2>Most Starred</h2>
             </header>
-
             <div className="chart-container">
               <canvas id="starChart" width="400" height="400" />
             </div>
@@ -145,7 +141,6 @@ class Charts extends Component {
             <header>
               <h2>Stars per Language</h2>
             </header>
-
             <div className="chart-container">
               <canvas id="thirdChart" width="400" height="400" />
             </div>

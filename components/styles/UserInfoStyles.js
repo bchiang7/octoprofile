@@ -10,11 +10,11 @@ const UserInfoStyles = styled.div`
 
   .avatar {
     ${mixins.flexCenter};
-    border: 4px solid ${colors.blue};
+    margin-bottom: 1.5rem;
+    border: 0.5rem solid ${colors.blue};
     border-radius: 100%;
     width: 150px;
     height: 150px;
-    margin-bottom: 2rem;
     img {
       border-radius: 100%;
     }
@@ -28,9 +28,13 @@ const UserInfoStyles = styled.div`
   h2 {
     font-family: ${fonts.mono};
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
     a {
       color: ${colors.blue};
     }
+  }
+  h3 {
+    color: ${colors.lightblue};
   }
 
   a {
@@ -43,7 +47,6 @@ const UserInfoStyles = styled.div`
 
   .info {
     ${mixins.flexCenter};
-    margin-top: 1rem;
 
     &__item {
       ${mixins.flexCenter};
@@ -56,11 +59,11 @@ const UserInfoStyles = styled.div`
   }
 
   .stats {
-    margin-top: 2rem;
     display: grid;
-    grid-template-columns: repeat(3, minmax(100px, 180px));
+    grid-template-columns: repeat(3, minmax(100px, 150px));
     grid-gap: 0.5rem;
     justify-content: center;
+    margin-top: 2rem;
 
     h4 {
       color: ${colors.offWhite};
@@ -75,19 +78,19 @@ const UserInfoStyles = styled.div`
       ${mixins.flexCenter};
       flex-direction: column;
       background-color: ${colors.darkGrey};
-      padding: 1.5rem 2rem;
+      padding: 1rem;
       border-radius: 0.25rem;
       text-align: center;
 
       .num {
-        color: ${colors.lightestBlue};
+        color: ${colors.offWhite};
         font-size: 1.5rem;
       }
       .num-label {
         text-transform: uppercase;
         font-size: 0.75rem;
         letter-spacing: 1px;
-        margin-top: 1rem;
+        margin-top: 0.75rem;
         color: rgba(200, 225, 255, 0.7);
       }
     }

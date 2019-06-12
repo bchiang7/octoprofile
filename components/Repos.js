@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Octicon, { Repo, Star, RepoForked, TriangleDown } from '@primer/octicons-react';
 import { reposData, langColors } from '../utils';
@@ -20,11 +20,12 @@ const StyledRepoList = styled.ul`
       color: ${colors.grey2};
       background-color: ${colors.white};
       border-radius: 0.25rem;
-      box-shadow: 0 5px 30px -15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
+      transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+
       &:hover,
       &:focus {
-        box-shadow: 0 15px 30px -15px rgba(0, 0, 0, 0.2);
-        transform: scale(1.009);
+        box-shadow: 0 8px 20px -15px rgba(0, 0, 0, 0.2);
       }
 
       h3 {
@@ -221,68 +222,74 @@ class Repos extends Component {
 
     return (
       <Section>
-        <header>
-          <h2>Top Repos</h2>
+        <div>
+          <header>
+            <h2>Top Repos</h2>
 
-          <StyledSort>
-            <span className="label">sorted by</span>
-            <Dropdown active={activeDropdown === 'repos'}>
-              <DropdownButton onClick={() => this.toggleDropdown('repos')}>
-                <label>{sortType}</label>
-                <Octicon icon={TriangleDown} />
-              </DropdownButton>
-              <DropdownList>
-                {sortTypes.map((type, i) => (
-                  <DropdownListItem
-                    key={i}
-                    onClick={() => this.changeRepoSort(type)}
-                    active={sortType === type}>
-                    {type}
-                  </DropdownListItem>
-                ))}
-              </DropdownList>
-            </Dropdown>
-          </StyledSort>
-        </header>
+            <StyledSort>
+              <span className="label">sorted by</span>
+              <Dropdown active={activeDropdown === 'repos'}>
+                <DropdownButton onClick={() => this.toggleDropdown('repos')}>
+                  <label>{sortType}</label>
+                  <Octicon icon={TriangleDown} />
+                </DropdownButton>
+                <DropdownList>
+                  {sortTypes.map((type, i) => (
+                    <DropdownListItem
+                      key={i}
+                      onClick={() => this.changeRepoSort(type)}
+                      active={sortType === type}>
+                      {type}
+                    </DropdownListItem>
+                  ))}
+                </DropdownList>
+              </Dropdown>
+            </StyledSort>
+          </header>
 
-        <StyledRepoList>
-          {topRepos &&
-            topRepos.map(repo => (
-              <li key={repo.id}>
-                <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="repo">
-                  <div className="repo__top">
-                    <div className="repo__name">
-                      <Octicon icon={Repo} />
-                      <h3>{repo.name}</h3>
+          <StyledRepoList>
+            {topRepos &&
+              topRepos.map(repo => (
+                <li key={repo.id}>
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="repo">
+                    <div className="repo__top">
+                      <div className="repo__name">
+                        <Octicon icon={Repo} />
+                        <h3>{repo.name}</h3>
+                      </div>
+                      <p>{repo.description}</p>
                     </div>
-                    <p>{repo.description}</p>
-                  </div>
-                  <div className="repo__stats">
-                    <div className="repo__stats--left">
-                      <span>
-                        <div
-                          className="language"
-                          style={{ backgroundColor: langColors[repo.language] }}
-                        />
-                        {repo.language}
-                      </span>
-                      <span>
-                        <Octicon icon={Star} />
-                        {repo.stargazers_count.toLocaleString()}
-                      </span>
-                      <span>
-                        <Octicon icon={RepoForked} />
-                        {repo.forks.toLocaleString()}
-                      </span>
+                    <div className="repo__stats">
+                      <div className="repo__stats--left">
+                        <span>
+                          <div
+                            className="language"
+                            style={{ backgroundColor: langColors[repo.language] }}
+                          />
+                          {repo.language}
+                        </span>
+                        <span>
+                          <Octicon icon={Star} />
+                          {repo.stargazers_count.toLocaleString()}
+                        </span>
+                        <span>
+                          <Octicon icon={RepoForked} />
+                          {repo.forks.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="repo__stats--right">
+                        <span>{repo.size.toLocaleString()} KB</span>
+                      </div>
                     </div>
-                    <div className="repo__stats--right">
-                      <span>{repo.size.toLocaleString()} KB</span>
-                    </div>
-                  </div>
-                </a>
-              </li>
-            ))}
-        </StyledRepoList>
+                  </a>
+                </li>
+              ))}
+          </StyledRepoList>
+        </div>
       </Section>
     );
   }

@@ -6,9 +6,6 @@ const buildScales = axes => {
   const scales = {
     xAxes: [
       {
-        gridLines: {
-          // color: 'rgba(0,0,0,0.5)',
-        },
         ticks: {
           fontFamily: fonts.inter,
           fontSize: 12,
@@ -17,9 +14,6 @@ const buildScales = axes => {
     ],
     yAxes: [
       {
-        gridLines: {
-          // color: 'rgba(0,0,0,0.5)',
-        },
         ticks: {
           beginAtZero: true,
           fontFamily: fonts.inter,

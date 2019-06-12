@@ -3,15 +3,20 @@ import { theme } from '../style';
 const { colors } = theme;
 
 const Section = styled.section`
-  padding: 5rem 5rem 2rem;
+  padding: 5rem;
 
   ${props =>
     props.dark &&
     css`
       background-color: ${colors.black};
       color: ${colors.lightestBlue};
-      padding-bottom: 7rem;
+      padding-bottom: 10rem;
     `};
+
+  & > div {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 
   header {
     display: flex;

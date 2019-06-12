@@ -3,11 +3,12 @@ import { theme, mixins } from '../../style';
 const { colors } = theme;
 
 const ChartsStyles = styled.div`
+  margin-top: -11rem !important;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-gap: 2rem;
   justify-content: center;
-  margin-top: -9rem;
+  /* justify-items: center; */
 
   .chart {
     background-color: ${colors.white};

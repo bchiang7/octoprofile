@@ -38,7 +38,7 @@ const UserInfo = () => {
             </h2>
           )}
 
-          {user.bio && <h3>{user.bio}</h3>}
+          {/* {user.bio && <h3>{user.bio}</h3>} */}
 
           <div className="info">
             {user.company && (
