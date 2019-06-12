@@ -4,7 +4,7 @@ const { colors } = theme;
 
 const StyledFooter = styled.footer`
   ${mixins.flexCenter};
-  padding: 2rem;
+  padding: 2rem 5rem;
   color: ${colors.grey};
   text-align: center;
   font-weight: 500;
@@ -51,6 +51,14 @@ const Footer = () => (
       <a href="https://www.styled-components.com/" target="_blank" rel="noopener noreferrer">
         Styled Components
       </a>
+      &middot;
+      <a
+        href="https://github.com/joshwcomeau/react-flip-move"
+        target="_blank"
+        rel="noopener noreferrer">
+        React Flip Move
+      </a>
+      and more!
     </div>
   </StyledFooter>
 );
