@@ -1,41 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import GhPolyglot from 'gh-polyglot';
+import GhPolyglot from 'gh-polyglot';
 import { langData, reposData, buildChart } from '../utils';
 import ChartsStyles from './styles/ChartsStyles';
 import { Section } from '../style';
 
-class Charts extends Component {
-  static propTypes = {
-    username: PropTypes.string.isRequired,
-  };
+const Charts = props => {
+  const [languages, setLanguages] = useState([]);
+  const [repos, setRepos] = useState([]);
 
-  state = {
-    languages: langData,
-    repos: reposData,
-    langChartType: 'pie',
-    starChartType: 'bar',
-    thirdChartType: 'doughnut',
-  };
-
-  componentDidMount() {
-    // const { username } = this.props;
-    // const me = new GhPolyglot(`${username}`);
-    // me.userStats((err, stats) => {
-    //   if (err) {
-    //     throw new Error(err);
-    //   }
-    //   this.setState({ languages: stats }, () => this.initLangChart());
-    // });
-    this.initLangChart();
-    this.initStarChart();
-    this.initThirdChart();
-  }
-
-  initLangChart = () => {
-    const { languages, langChartType } = this.state;
-    const chartType = langChartType;
+  const initLangChart = () => {
     const ctx = document.getElementById('langChart');
+    const chartType = 'pie';
     const labels = languages.map(lang => lang.label);
     const data = languages.map(lang => lang.value);
     const backgroundColor = languages.map(
@@ -48,10 +24,9 @@ class Charts extends Component {
     buildChart(config);
   };
 
-  initStarChart = () => {
-    const { repos, starChartType } = this.state;
+  const initStarChart = () => {
     const ctx = document.getElementById('starChart');
-    const chartType = starChartType;
+    const chartType = 'bar';
     const LIMIT = 5;
     const sortProperty = 'stargazers_count';
     const mostStarredRepos = repos
@@ -82,10 +57,9 @@ class Charts extends Component {
     buildChart(config);
   };
 
-  initThirdChart = () => {
-    const { repos, thirdChartType } = this.state;
+  const initThirdChart = () => {
     const ctx = document.getElementById('thirdChart');
-    const chartType = thirdChartType;
+    const chartType = 'doughnut';
     const uniqueLangs = new Set(repos.map(repo => repo.language));
     const labels = Array.from(uniqueLangs.values()).filter(l => l);
     const data = labels
@@ -115,42 +89,67 @@ class Charts extends Component {
     buildChart(config);
   };
 
-  render() {
-    const chartSize = 300;
+  const init = () => {
+    initLangChart();
+    initStarChart();
+    initThirdChart();
+  };
 
-    return (
-      <Section>
-        <ChartsStyles>
-          <div className="chart">
-            <header>
-              <h2>Top Languages</h2>
-            </header>
-            <div className="chart-container">
-              <canvas id="langChart" width={chartSize} height={chartSize} />
-            </div>
-          </div>
+  useEffect(() => {
+    const { username } = props;
+    // const me = new GhPolyglot(`${username}`);
+    // me.userStats((err, stats) => {
+    //   if (err) {
+    //     throw new Error(err);
+    //   }
+    //   this.setState({ languages: stats }, () => this.initLangChart());
+    // });
 
-          <div className="chart">
-            <header>
-              <h2>Most Starred</h2>
-            </header>
-            <div className="chart-container">
-              <canvas id="starChart" width={chartSize} height={chartSize} />
-            </div>
-          </div>
+    setLanguages(langData);
+    setRepos(reposData);
+    if (languages.length && repos.length) {
+      init();
+    }
+  }, [languages, repos]);
 
-          <div className="chart">
-            <header>
-              <h2>Stars per Language</h2>
-            </header>
-            <div className="chart-container">
-              <canvas id="thirdChart" width={chartSize} height={chartSize} />
-            </div>
+  const chartSize = 300;
+
+  return (
+    <Section>
+      <ChartsStyles>
+        <div className="chart">
+          <header>
+            <h2>Top Languages</h2>
+          </header>
+          <div className="chart-container">
+            <canvas id="langChart" width={chartSize} height={chartSize} />
           </div>
-        </ChartsStyles>
-      </Section>
-    );
-  }
-}
+        </div>
+
+        <div className="chart">
+          <header>
+            <h2>Most Starred</h2>
+          </header>
+          <div className="chart-container">
+            <canvas id="starChart" width={chartSize} height={chartSize} />
+          </div>
+        </div>
+
+        <div className="chart">
+          <header>
+            <h2>Stars per Language</h2>
+          </header>
+          <div className="chart-container">
+            <canvas id="thirdChart" width={chartSize} height={chartSize} />
+          </div>
+        </div>
+      </ChartsStyles>
+    </Section>
+  );
+};
+
+Charts.propTypes = {
+  username: PropTypes.string.isRequired,
+};
 
 export default Charts;

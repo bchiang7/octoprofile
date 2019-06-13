@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Head from '../components/Head';
-import UserInfo from '../components/UserInfo';
-import Charts from '../components/Charts';
-import Repos from '../components/Repos';
-import Footer from '../components/Footer';
-import Corner from '../components/Corner';
+import { Head, UserInfo, Charts, Repos, Footer, Corner } from '../components';
 
 const User = props => {
   const username = props.query.id;

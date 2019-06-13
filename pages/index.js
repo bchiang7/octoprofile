@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import Octicon, { MarkGithub } from '@primer/octicons-react';
-import Head from '../components/Head';
+import { Head } from '../components';
 import styled from 'styled-components';
 import { theme, mixins } from '../style';
 const { colors, fonts } = theme;

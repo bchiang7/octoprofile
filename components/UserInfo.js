@@ -5,10 +5,11 @@ import { userData } from '../utils';
 import UserInfoStyles from './styles/UserInfoStyles';
 import { Section } from '../style';
 
-const UserInfo = () => {
+const UserInfo = props => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const { username } = props;
     // fetch(`https://api.github.com/users/${username}`)
     //   .then(response => response.json())
     //   .then(json => {
