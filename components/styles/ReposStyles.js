@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme, mixins } from '../../style';
+import { theme, mixins, media } from '../../style';
 const { colors, fonts } = theme;
 
 const ReposStyles = styled.div`
@@ -23,13 +23,16 @@ const ReposStyles = styled.div`
         .repo {
           ${mixins.flexBetween};
           flex-direction: column;
-          padding: 30px;
+          padding: 2rem;
           height: 100%;
           color: ${colors.grey2};
           background-color: ${colors.white};
           border-radius: 0.25rem;
           box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.2);
           transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+          ${media.bp600`
+            padding: 1.5rem;
+          `};
 
           &:hover,
           &:focus {

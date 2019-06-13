@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme, mixins } from '../style';
+import { theme, mixins, media } from '../style';
 const { colors } = theme;
 
 const StyledFooter = styled.footer`
@@ -10,9 +10,12 @@ const StyledFooter = styled.footer`
   font-weight: 500;
   font-size: 14px;
 
-  p {
-    margin: 0;
-  }
+  ${media.bp900`
+    padding: 2rem;
+  `};
+  ${media.bp400`
+    padding: 1rem;
+  `};
 
   a {
     padding: 7px;
@@ -42,10 +45,6 @@ const Footer = () => (
         target="_blank"
         rel="noopener noreferrer">
         GitHub Polyglot
-      </a>
-      &middot;
-      <a href="https://octicons.github.com/" target="_blank" rel="noopener noreferrer">
-        Octicons
       </a>
       &middot;
       <a href="https://www.styled-components.com/" target="_blank" rel="noopener noreferrer">

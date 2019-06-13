@@ -116,6 +116,8 @@ class Charts extends Component {
   };
 
   render() {
+    const chartSize = 300;
+
     return (
       <Section>
         <ChartsStyles>
@@ -124,7 +126,7 @@ class Charts extends Component {
               <h2>Top Languages</h2>
             </header>
             <div className="chart-container">
-              <canvas id="langChart" width="400" height="400" />
+              <canvas id="langChart" width={chartSize} height={chartSize} />
             </div>
           </div>
 
@@ -133,7 +135,7 @@ class Charts extends Component {
               <h2>Most Starred</h2>
             </header>
             <div className="chart-container">
-              <canvas id="starChart" width="400" height="400" />
+              <canvas id="starChart" width={chartSize} height={chartSize} />
             </div>
           </div>
 
@@ -142,7 +144,7 @@ class Charts extends Component {
               <h2>Stars per Language</h2>
             </header>
             <div className="chart-container">
-              <canvas id="thirdChart" width="400" height="400" />
+              <canvas id="thirdChart" width={chartSize} height={chartSize} />
             </div>
           </div>
         </ChartsStyles>

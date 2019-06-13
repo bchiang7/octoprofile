@@ -255,7 +255,7 @@ const GlobalStyle = createGlobalStyle`
         url('../static/assets/fonts/SFMono/SFMono-MediumItalic.woff') format('woff');
     font-weight: 500;
     font-style: italic;
-}
+  }
 
   html {
     box-sizing: border-box;
@@ -265,6 +265,11 @@ const GlobalStyle = createGlobalStyle`
   *:before,
   *:after {
     box-sizing: inherit;
+  }
+
+  ::selection {
+    background-color: ${colors.blue};
+    color: ${colors.white};
   }
 
   body {

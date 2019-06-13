@@ -69,7 +69,7 @@ class Repos extends Component {
             <h2>Top Repos</h2>
 
             <div className="dropdown-wrapper">
-              <span className="label">sorted by</span>
+              <span className="label">by</span>
               <DropdownStyles active={activeDropdown === 'repos'}>
                 <button className="dropdown__button" onClick={() => this.toggleDropdown('repos')}>
                   <label>{sortType}</label>

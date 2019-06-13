@@ -1,9 +1,16 @@
 import styled, { css } from 'styled-components';
-import { theme } from '../style';
+import { theme, media } from '../style';
 const { colors } = theme;
 
 const Section = styled.section`
   padding: 3rem 5rem;
+
+  ${media.bp900`
+    padding: 2rem;
+  `};
+  ${media.bp400`
+    padding: 1rem;
+  `};
 
   ${props =>
     props.dark &&
@@ -11,6 +18,10 @@ const Section = styled.section`
       background-color: ${colors.black};
       color: ${colors.lightestBlue};
       padding-bottom: 10rem;
+      ${media.bp900`
+        padding-top: 2rem;
+        padding-bottom: 10rem;
+      `};
     `};
 
   & > div {
@@ -32,6 +43,9 @@ const Section = styled.section`
       background-repeat: repeat-x;
       background-size: 10px 2px;
       padding-bottom: 6px;
+      ${media.bp600`
+        font-size: 1.5rem;
+      `};
     }
   }
 `;
