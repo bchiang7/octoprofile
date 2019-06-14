@@ -24,8 +24,6 @@ const UserInfo = ({ userData }) => (
           </h2>
         )}
 
-        {/* {userData.bio && <h3>{userData.bio}</h3>} */}
-
         <div className="info">
           {userData.company && (
             <span className="info__item">
@@ -55,24 +53,18 @@ const UserInfo = ({ userData }) => (
         </div>
 
         <div className="stats">
-          {userData.public_repos && (
-            <div className="stats__item">
-              <span className="num">{userData.public_repos}</span>
-              <span className="num-label">Repositories</span>
-            </div>
-          )}
-          {userData.followers && (
-            <div className="stats__item">
-              <span className="num">{userData.followers}</span>
-              <span className="num-label">Followers</span>
-            </div>
-          )}
-          {userData.following && (
-            <div className="stats__item">
-              <span className="num">{userData.following}</span>
-              <span className="num-label">Following</span>
-            </div>
-          )}
+          <div className="stats__item">
+            <span className="num">{userData.public_repos}</span>
+            <span className="num-label">Repositories</span>
+          </div>
+          <div className="stats__item">
+            <span className="num">{userData.followers}</span>
+            <span className="num-label">Followers</span>
+          </div>
+          <div className="stats__item">
+            <span className="num">{userData.following}</span>
+            <span className="num-label">Following</span>
+          </div>
         </div>
       </UserInfoStyles>
     )}
