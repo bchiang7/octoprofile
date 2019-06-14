@@ -69,7 +69,7 @@ const Repos = ({ repoData }) => {
         </header>
 
         <div className="repo-list">
-          {topRepos.length && (
+          {topRepos.length > 0 ? (
             <FlipMove typeName="ul">
               {topRepos.map(repo => (
                 <li key={repo.id}>
@@ -111,6 +111,8 @@ const Repos = ({ repoData }) => {
                 </li>
               ))}
             </FlipMove>
+          ) : (
+            <p>No available repositories!</p>
           )}
         </div>
       </ReposStyles>

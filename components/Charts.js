@@ -54,15 +54,11 @@ const Charts = ({ langData, repoData }) => {
     buildChart(config);
   };
 
-  const init = () => {
-    initLangChart();
-    initStarChart();
-    initThirdChart();
-  };
-
   useEffect(() => {
     if (langData.length && repoData.length) {
-      init();
+      initLangChart();
+      initStarChart();
+      initThirdChart();
     }
   }, []);
 

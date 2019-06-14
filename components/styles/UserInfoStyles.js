@@ -8,6 +8,10 @@ const UserInfoStyles = styled.div`
   margin-bottom: 30px;
   text-align: center;
 
+  ${media.bp600`
+    padding-top: 4rem;
+  `};
+
   .avatar {
     ${mixins.flexCenter};
     margin-bottom: 1.5rem;
