@@ -34,8 +34,8 @@ const User = props => {
     const me = new GhPolyglot(`${username}`);
     me.userStats((err, stats) => {
       if (err) {
-        setError({ active: true, type: 403 });
-        throw new Error(err);
+        console.error('Error:', err);
+        setError({ active: true, type: 400 });
       }
       setLangData(stats);
     });

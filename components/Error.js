@@ -39,7 +39,7 @@ const Error = ({ error }) => (
     <h1>OctoProfile</h1>
 
     {error && (
-      <>
+      <div>
         {error.type === 403 ? (
           <p>
             Oh no, you hit the{' '}
@@ -56,7 +56,7 @@ const Error = ({ error }) => (
         ) : (
           <p>Oh no! Something went wrong. Try again later!</p>
         )}
-      </>
+      </div>
     )}
   </ErrorStyles>
 );

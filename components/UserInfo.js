@@ -54,15 +54,15 @@ const UserInfo = ({ userData }) => (
 
         <div className="stats">
           <div className="stats__item">
-            <span className="num">{userData.public_repos}</span>
+            <span className="num">{userData.public_repos.toLocaleString()}</span>
             <span className="num-label">Repositories</span>
           </div>
           <div className="stats__item">
-            <span className="num">{userData.followers}</span>
+            <span className="num">{userData.followers.toLocaleString()}</span>
             <span className="num-label">Followers</span>
           </div>
           <div className="stats__item">
-            <span className="num">{userData.following}</span>
+            <span className="num">{userData.following.toLocaleString()}</span>
             <span className="num-label">Following</span>
           </div>
         </div>
