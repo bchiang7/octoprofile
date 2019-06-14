@@ -2,31 +2,25 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Octicon, { Repo, Star, RepoForked, TriangleDown } from '@primer/octicons-react';
 import FlipMove from 'react-flip-move';
-import { reposData, langColors } from '../utils';
+import { langColors } from '../utils';
 import ReposStyles from './styles/ReposStyles';
 import DropdownStyles from './styles/DropdownStyles';
 import { Section } from '../style';
 
-const Repos = props => {
-  const [repos, setRepos] = useState([]);
-  const [topRepos, setTopRepos] = useState('');
+const Repos = ({ repoData }) => {
+  const [topRepos, setTopRepos] = useState([]);
   const [sortType, setSortType] = useState('stars');
-  const [activeDropdown, setActiveDropdown] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const getRepoPropName = type => {
+  const getTopRepos = type => {
+    const LIMIT = 8;
     const map = {
       stars: 'stargazers_count',
       forks: 'forks_count',
-      watchers: 'watchers_count',
       size: 'size',
     };
-    return map[type];
-  };
-
-  const getTopRepos = () => {
-    const LIMIT = 8;
-    const sortProperty = getRepoPropName(sortType);
-    const sorted = repos
+    const sortProperty = map[type];
+    const sorted = repoData
       .filter(repo => !repo.fork)
       .sort((a, b) => b[sortProperty] - a[sortProperty])
       .slice(0, LIMIT);
@@ -35,35 +29,21 @@ const Repos = props => {
   };
 
   useEffect(() => {
-    const { username } = props;
-    // fetch(`https://api.github.com/users/${username}/repos`)
-    //   .then(response => response.json())
-    //   .then(json => {
-    //     console.log(json);
-    //     setRepos(json);
-    //   });
-
-    setRepos(reposData);
-
-    if (repos.length) {
+    if (repoData.length) {
       getTopRepos();
     }
-  }, [repos]);
+  }, []);
 
-  const toggleDropdown = (type = '') => {
-    if (!type) {
-      return;
-    }
-    setActiveDropdown(activeDropdown === type ? '' : type);
-  };
+  useEffect(() => getTopRepos(sortType), [sortType]);
+
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const changeRepoSort = sortType => {
     setSortType(sortType);
-    getTopRepos();
-    toggleDropdown('repos');
+    toggleDropdown();
   };
 
-  const sortTypes = ['stars', 'forks', 'watchers', 'size'];
+  const sortTypes = ['stars', 'forks', 'size'];
 
   return (
     <Section>
@@ -72,8 +52,8 @@ const Repos = props => {
           <h2>Top Repos</h2>
           <div className="dropdown-wrapper">
             <span className="label">by</span>
-            <DropdownStyles active={activeDropdown === 'repos'}>
-              <button className="dropdown__button" onClick={() => toggleDropdown('repos')}>
+            <DropdownStyles active={dropdownOpen}>
+              <button className="dropdown__button" onClick={() => toggleDropdown()}>
                 <label>{sortType}</label>
                 <Octicon icon={TriangleDown} />
               </button>
@@ -89,7 +69,7 @@ const Repos = props => {
         </header>
 
         <div className="repo-list">
-          {topRepos && (
+          {topRepos.length && (
             <FlipMove typeName="ul">
               {topRepos.map(repo => (
                 <li key={repo.id}>
@@ -139,7 +119,7 @@ const Repos = props => {
 };
 
 Repos.propTypes = {
-  username: PropTypes.string.isRequired,
+  repoData: PropTypes.array.isRequired,
 };
 
 export default Repos;
