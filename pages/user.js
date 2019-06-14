@@ -25,7 +25,7 @@ const User = props => {
       })
       .then(json => setUserData(json))
       .catch(error => {
-        setError(true);
+        setError({ active: true, type: 400 });
         console.error('Error:', error);
       });
   };
@@ -65,7 +65,7 @@ const User = props => {
       .then(json => {
         setRateLimit(json.resources.core);
         if (json.resources.core.remaining < 1) {
-          setError(true);
+          setError({ active: true, type: 403 });
         }
       });
 
