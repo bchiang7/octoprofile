@@ -47,7 +47,6 @@ const buildChart = config => {
       labels,
       datasets: [
         {
-          label: 'Languages',
           data,
           backgroundColor,
           borderColor,

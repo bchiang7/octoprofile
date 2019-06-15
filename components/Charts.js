@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { buildChart, langColors, backgroundColor, borderColor } from '../utils';
 import ChartsStyles from './styles/ChartsStyles';
@@ -39,21 +39,33 @@ const Charts = ({ langData, repoData }) => {
     buildChart(config);
   };
 
+  const [thirdChartData, setThirdChartData] = useState([]);
+
   // Create Stars per language chart
   const initThirdChart = () => {
     const ctx = document.getElementById('thirdChart');
-    const uniqueLangs = new Set(repoData.map(repo => repo.language));
+    const filteredRepos = repoData.filter(repo => !repo.fork && repo.stargazers_count > 0);
+    const uniqueLangs = new Set(filteredRepos.map(repo => repo.language));
     const labels = Array.from(uniqueLangs.values()).filter(l => l);
-    const data = labels
-      .map(lang => repoData.filter(repo => repo.language === lang))
-      .map(a => a.length);
-    const chartType = 'doughnut';
-    const axes = false;
-    const legend = true;
-    const borderColor = labels.map(label => langColors[label]);
-    const backgroundColor = borderColor.map(color => `${color}B3`);
-    const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
-    buildChart(config);
+    const data = labels.map(lang => {
+      const starSum = filteredRepos
+        .filter(repo => repo.language === lang)
+        .map(r => r.stargazers_count)
+        .reduce((a, b) => a + b, 0);
+      return starSum;
+    });
+
+    setThirdChartData(data);
+
+    if (data.length > 0) {
+      const chartType = 'doughnut';
+      const axes = false;
+      const legend = true;
+      const borderColor = labels.map(label => langColors[label]);
+      const backgroundColor = borderColor.map(color => `${color}B3`);
+      const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
+      buildChart(config);
+    }
   };
 
   useEffect(() => {
@@ -92,7 +104,11 @@ const Charts = ({ langData, repoData }) => {
             <h2>Stars per Language</h2>
           </header>
           <div className="chart-container">
-            <canvas id="thirdChart" width={chartSize} height={chartSize} />
+            {thirdChartData.length > 0 ? (
+              <canvas id="thirdChart" width={chartSize} height={chartSize} />
+            ) : (
+              <p>Nothing to see here!</p>
+            )}
           </div>
         </div>
       </ChartsStyles>
