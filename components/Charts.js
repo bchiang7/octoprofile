@@ -6,7 +6,7 @@ import { Section } from '../style';
 
 const Charts = ({ langData, repoData }) => {
   // Create chart with langData
-  const [langChartData, setLangChartData] = useState([]);
+  const [langChartData, setLangChartData] = useState(null);
   const initLangChart = () => {
     const ctx = document.getElementById('langChart');
     const labels = langData.map(lang => lang.label);
@@ -27,7 +27,7 @@ const Charts = ({ langData, repoData }) => {
   };
 
   // Create Most Starred chart
-  const [starChartData, setStarChartData] = useState([]);
+  const [starChartData, setStarChartData] = useState(null);
   const initStarChart = () => {
     const ctx = document.getElementById('starChart');
     const LIMIT = 5;
@@ -50,7 +50,7 @@ const Charts = ({ langData, repoData }) => {
   };
 
   // Create Stars per language chart
-  const [thirdChartData, setThirdChartData] = useState([]);
+  const [thirdChartData, setThirdChartData] = useState(null);
   const initThirdChart = () => {
     const ctx = document.getElementById('thirdChart');
     const filteredRepos = repoData.filter(repo => !repo.fork && repo.stargazers_count > 0);
@@ -85,6 +85,9 @@ const Charts = ({ langData, repoData }) => {
   }, []);
 
   const chartSize = 300;
+  const langChartError = !(langChartData && langChartData.length > 0);
+  const starChartError = !(starChartData && starChartData.length > 0);
+  const thirdChartError = !(thirdChartData && thirdChartData.length > 0);
 
   return (
     <Section>
@@ -93,26 +96,21 @@ const Charts = ({ langData, repoData }) => {
           <header>
             <h2>Top Languages</h2>
           </header>
-          {langChartData.length > 0 ? (
-            <div className="chart-container">
-              <canvas id="langChart" width={chartSize} height={chartSize} />
-            </div>
-          ) : (
-            <p>Nothing to see here!</p>
-          )}
+
+          <div className="chart-container">
+            {langChartError && <p>Nothing to see here!</p>}
+            <canvas id="langChart" width={chartSize} height={chartSize} />
+          </div>
         </div>
 
         <div className="chart">
           <header>
             <h2>Most Starred</h2>
           </header>
-          {starChartData.length > 0 ? (
-            <div className="chart-container">
-              <canvas id="starChart" width={chartSize} height={chartSize} />
-            </div>
-          ) : (
-            <p>Nothing to see here!</p>
-          )}
+          <div className="chart-container">
+            {starChartError && <p>Nothing to see here!</p>}
+            <canvas id="starChart" width={chartSize} height={chartSize} />
+          </div>
         </div>
 
         <div className="chart">
@@ -120,11 +118,8 @@ const Charts = ({ langData, repoData }) => {
             <h2>Stars per Language</h2>
           </header>
           <div className="chart-container">
-            {thirdChartData.length > 0 ? (
-              <canvas id="thirdChart" width={chartSize} height={chartSize} />
-            ) : (
-              <p>Nothing to see here!</p>
-            )}
+            {thirdChartError && <p>Nothing to see here!</p>}
+            <canvas id="thirdChart" width={chartSize} height={chartSize} />
           </div>
         </div>
       </ChartsStyles>
