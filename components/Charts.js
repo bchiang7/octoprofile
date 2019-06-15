@@ -6,22 +6,28 @@ import { Section } from '../style';
 
 const Charts = ({ langData, repoData }) => {
   // Create chart with langData
+  const [langChartData, setLangChartData] = useState([]);
   const initLangChart = () => {
     const ctx = document.getElementById('langChart');
     const labels = langData.map(lang => lang.label);
     const data = langData.map(lang => lang.value);
-    const backgroundColor = langData.map(
-      ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}B3`,
-    );
-    const borderColor = langData.map(lang => `${lang.color}`);
-    const chartType = 'pie';
-    const axes = false;
-    const legend = true;
-    const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
-    buildChart(config);
+    setLangChartData(data);
+
+    if (data.length > 0) {
+      const backgroundColor = langData.map(
+        ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}B3`,
+      );
+      const borderColor = langData.map(lang => `${lang.color}`);
+      const chartType = 'pie';
+      const axes = false;
+      const legend = true;
+      const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
+      buildChart(config);
+    }
   };
 
   // Create Most Starred chart
+  const [starChartData, setStarChartData] = useState([]);
   const initStarChart = () => {
     const ctx = document.getElementById('starChart');
     const LIMIT = 5;
@@ -32,16 +38,19 @@ const Charts = ({ langData, repoData }) => {
       .slice(0, LIMIT);
     const labels = mostStarredRepos.map(repo => repo.name);
     const data = mostStarredRepos.map(repo => repo[sortProperty]);
-    const chartType = 'bar';
-    const axes = true;
-    const legend = false;
-    const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
-    buildChart(config);
+    setStarChartData(data);
+
+    if (data.length > 0) {
+      const chartType = 'bar';
+      const axes = true;
+      const legend = false;
+      const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
+      buildChart(config);
+    }
   };
 
-  const [thirdChartData, setThirdChartData] = useState([]);
-
   // Create Stars per language chart
+  const [thirdChartData, setThirdChartData] = useState([]);
   const initThirdChart = () => {
     const ctx = document.getElementById('thirdChart');
     const filteredRepos = repoData.filter(repo => !repo.fork && repo.stargazers_count > 0);
@@ -54,7 +63,6 @@ const Charts = ({ langData, repoData }) => {
         .reduce((a, b) => a + b, 0);
       return starSum;
     });
-
     setThirdChartData(data);
 
     if (data.length > 0) {
@@ -85,18 +93,26 @@ const Charts = ({ langData, repoData }) => {
           <header>
             <h2>Top Languages</h2>
           </header>
-          <div className="chart-container">
-            <canvas id="langChart" width={chartSize} height={chartSize} />
-          </div>
+          {langChartData.length > 0 ? (
+            <div className="chart-container">
+              <canvas id="langChart" width={chartSize} height={chartSize} />
+            </div>
+          ) : (
+            <p>Nothing to see here!</p>
+          )}
         </div>
 
         <div className="chart">
           <header>
             <h2>Most Starred</h2>
           </header>
-          <div className="chart-container">
-            <canvas id="starChart" width={chartSize} height={chartSize} />
-          </div>
+          {starChartData.length > 0 ? (
+            <div className="chart-container">
+              <canvas id="starChart" width={chartSize} height={chartSize} />
+            </div>
+          ) : (
+            <p>Nothing to see here!</p>
+          )}
         </div>
 
         <div className="chart">
