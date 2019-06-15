@@ -18,12 +18,10 @@ const StyledFooter = styled.footer`
   `};
 
   a {
-    padding: 7px;
-    border-radius: 5px;
+    padding: 5px;
     &:hover,
     &:focus {
-      color: #0070f3;
-      background: rgba(0, 118, 255, 0.1);
+      text-decoration: underline;
     }
   }
 `;

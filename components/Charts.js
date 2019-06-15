@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { buildChart, backgroundColor, borderColor } from '../utils';
+import { buildChart, langColors, backgroundColor, borderColor } from '../utils';
 import ChartsStyles from './styles/ChartsStyles';
 import { Section } from '../style';
 
@@ -11,7 +11,7 @@ const Charts = ({ langData, repoData }) => {
     const labels = langData.map(lang => lang.label);
     const data = langData.map(lang => lang.value);
     const backgroundColor = langData.map(
-      ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}99`,
+      ({ color }) => `#${color.length > 4 ? color.slice(1) : color.slice(1).repeat(2)}B3`,
     );
     const borderColor = langData.map(lang => `${lang.color}`);
     const chartType = 'pie';
@@ -50,6 +50,8 @@ const Charts = ({ langData, repoData }) => {
     const chartType = 'doughnut';
     const axes = false;
     const legend = true;
+    const borderColor = labels.map(label => langColors[label]);
+    const backgroundColor = borderColor.map(color => `${color}B3`);
     const config = { ctx, chartType, labels, data, backgroundColor, borderColor, axes, legend };
     buildChart(config);
   };
