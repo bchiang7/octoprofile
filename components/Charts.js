@@ -11,6 +11,7 @@ const Charts = ({ langData, repoData }) => {
     const ctx = document.getElementById('langChart');
     const labels = langData.map(lang => lang.label);
     const data = langData.map(lang => lang.value);
+
     setLangChartData(data);
 
     if (data.length > 0) {
@@ -38,6 +39,7 @@ const Charts = ({ langData, repoData }) => {
       .slice(0, LIMIT);
     const labels = mostStarredRepos.map(repo => repo.name);
     const data = mostStarredRepos.map(repo => repo[sortProperty]);
+
     setStarChartData(data);
 
     if (data.length > 0) {
@@ -57,12 +59,12 @@ const Charts = ({ langData, repoData }) => {
     const uniqueLangs = new Set(filteredRepos.map(repo => repo.language));
     const labels = Array.from(uniqueLangs.values()).filter(l => l);
     const data = labels.map(lang => {
-      const starSum = filteredRepos
-        .filter(repo => repo.language === lang)
-        .map(r => r.stargazers_count)
-        .reduce((a, b) => a + b, 0);
+      const repos = filteredRepos.filter(repo => repo.language === lang);
+      const starsArr = repos.map(r => r.stargazers_count);
+      const starSum = starsArr.reduce((a, b) => a + b, 0);
       return starSum;
     });
+
     setThirdChartData(data);
 
     if (data.length > 0) {

@@ -42,7 +42,7 @@ const User = props => {
   };
 
   const getRepoData = () => {
-    fetch(`https://api.github.com/users/${username}/repos`)
+    fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
       .then(response => {
         if (response.status === 404) {
           return setError({ active: true, type: 404 });
