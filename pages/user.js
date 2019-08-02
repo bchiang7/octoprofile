@@ -23,7 +23,10 @@ const User = props => {
         }
         return response.json();
       })
-      .then(json => setUserData(json))
+      .then(json => {
+        setUserData(json);
+        localStorage.setItem('username', username); //if username exists, save to local storage
+      })
       .catch(error => {
         setError({ active: true, type: 400 });
         console.error('Error:', error);

@@ -1,8 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Router from 'next/router';
 import Octicon, { Briefcase, Calendar, Location } from '@primer/octicons-react';
 import UserInfoStyles from './styles/UserInfoStyles';
-import { Section } from '../style';
+import { mixins, Section } from '../style';
+import styled from 'styled-components';
+
+const StyledButton = styled.div`
+  button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: #24292e;
+    color: rgba(200, 225, 255, 0.7);
+    margintop: 6px;
+  }
+
+  button:hover {
+    color: white;
+  }
+`;
+
+const logOut = async () => {
+  await localStorage.removeItem('username');
+  Router.push({
+    pathname: '/',
+  });
+};
 
 const UserInfo = ({ userData }) => (
   <Section dark>
@@ -21,6 +44,9 @@ const UserInfo = ({ userData }) => (
             <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
               @{userData.login}
             </a>
+            <StyledButton>
+              <button onClick={logOut}>Log out</button>
+            </StyledButton>
           </h2>
         )}
 
