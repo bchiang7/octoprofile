@@ -23,7 +23,7 @@ Built with:
 2. Fire up the server and watch files
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 ## Deployment
@@ -31,7 +31,7 @@ Built with:
 1. Install the Now CLI
 
    ```bash
-   npm install -g now
+   yarn add now
    ```
 
 2. Deploy!
