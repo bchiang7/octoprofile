@@ -24,6 +24,8 @@ const UserInfo = ({ userData }) => (
           </h2>
         )}
 
+        {userData.bio && <h4>{userData.bio}</h4>}
+
         <div className="info">
           {userData.company && (
             <span className="info__item">
