@@ -193,7 +193,7 @@ const langColors = {
   NCL: '#28431f',
   Io: '#a9188d',
   Rouge: '#cc0088',
-  cpp: '#f34b7d',
+  'C++': '#f34b7d',
   'AGS Script': '#B9D9FF',
   Dogescript: '#cca760',
   nesC: '#94B0C7',
